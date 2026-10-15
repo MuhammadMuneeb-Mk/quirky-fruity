@@ -1,0 +1,79 @@
+/* Desktop Styles */
+.Logo h1{
+    font-weight: bolder;
+    font-family: 'Poppins', sans-serif;
+    color: #F5E6C4;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #D84A2B;
+  color: #F5E6C4;
+  font-size: large;
+  font-weight: 600;
+font-family: 'Poppins', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 20px;
+  cursor: pointer;
+
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  
+}
+
+.hamburger {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+}
+
+/* Mobile Styles (The Responsive Part) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Show hamburger on small screens */
+  }
+
+  .nav-links {
+    display: none; /* Hide links by default */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+   background-color: #D84A2B;
+
+    padding: 20px;
+  }
+
+  /* When the 'open' class is added via React state, show the menu */
+  .nav-links.open {
+    display: flex;
+    z-index: 3;  
+    cursor: pointer;
+
+  }
+
+
+}
