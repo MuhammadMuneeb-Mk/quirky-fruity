@@ -1,0 +1,147 @@
+.menu-hero {
+  background: var(--teal);
+  border-bottom: 3px solid var(--ink);
+  padding-block: clamp(48px, 7vw, 80px) clamp(56px, 8vw, 96px);
+  color: var(--ink);
+}
+
+.menu-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  max-width: 16ch;
+  margin-bottom: 16px;
+}
+
+.menu-hero .highlight {
+  color: var(--cream);
+  -webkit-text-stroke: 1px var(--ink);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.menu-hero p {
+  max-width: 58ch;
+  font-size: 1.1rem;
+}
+
+.menu-body {
+  padding-block: 0 clamp(64px, 9vw, 112px);
+}
+
+.menu-toolbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: -32px;
+  padding: 16px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-ink);
+}
+
+.menu-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-chip {
+  padding: 9px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.menu-chip:hover {
+  background: var(--cream);
+}
+
+.menu-chip:active {
+  transform: scale(0.97);
+}
+
+.menu-chip.is-active {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.menu-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.menu-controls .MuiTextField-root {
+  width: 200px;
+}
+
+.menu-controls .MuiTextField-root:first-child {
+  width: 260px;
+}
+
+.menu-count {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 32px 0 20px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.menu-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.menu-empty img {
+  animation: float 4s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+.menu-empty h3 {
+  font-size: 1.8rem;
+}
+
+.menu-empty p {
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 720px) {
+  .menu-controls,
+  .menu-controls .MuiTextField-root,
+  .menu-controls .MuiTextField-root:first-child {
+    width: 100%;
+  }
+
+  .menu-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: -4px;
+    padding: 4px;
+    scrollbar-width: none;
+  }
+
+  .menu-chip {
+    flex: none;
+  }
+}

@@ -1,0 +1,142 @@
+.cart-drawer {
+  width: min(420px, 100vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--paper) !important;
+  border-left: 3px solid var(--ink);
+}
+
+.cart-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px 24px;
+  border-bottom: 2px dashed var(--cream-line);
+}
+
+.cart-drawer__header h2 {
+  font-size: 1.75rem;
+}
+
+.cart-drawer__header h2 span {
+  color: var(--tomato);
+}
+
+.cart-drawer__empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px;
+  text-align: center;
+}
+
+.cart-drawer__empty img {
+  animation: float 4s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+.cart-drawer__empty h3 {
+  font-size: 1.5rem;
+}
+
+.cart-drawer__empty p {
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.cart-drawer__lines {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 8px 20px;
+  list-style: none;
+}
+
+.cart-line {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--cream-line);
+}
+
+.cart-line:last-child {
+  border-bottom: 0;
+}
+
+.cart-line__thumb {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--tint);
+}
+
+.cart-line__thumb img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.cart-line__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-line__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cart-line__top h3 {
+  font-size: 1.2rem;
+  padding-top: 4px;
+}
+
+.cart-line__unit {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.cart-line__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-drawer__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px 24px;
+  border-top: 3px solid var(--ink);
+  background: var(--cream);
+}
+
+.cart-drawer__delivery {
+  font-size: 0.9rem;
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+
+.cart-drawer__subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.cart-drawer__subtotal strong {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}

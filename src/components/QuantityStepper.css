@@ -1,0 +1,30 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.stepper--medium {
+  min-width: 132px;
+  min-height: 48px;
+}
+
+.stepper--small {
+  min-width: 108px;
+}
+
+.stepper__value {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper .MuiIconButton-root:disabled {
+  color: rgba(246, 234, 208, 0.35);
+}

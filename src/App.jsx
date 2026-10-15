@@ -1,66 +1,60 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Snackbar from '@mui/material/Snackbar'      
-import Alert from '@mui/material/Alert'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import Home from './pages/Home'
+import { lazy, Suspense, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import LinearProgress from '@mui/material/LinearProgress'
 import Navbar from './components/Navbar'
-import './App.css'
+import Footer from './components/Footer'
+import CartDrawer from './components/CartDrawer'
+import CartNotice from './components/CartNotice'
+import Home from './pages/Home'
+
+// lazy load the other pages
+const Menu = lazy(() => import('./pages/Menu'))
+const Checkout = lazy(() => import('./pages/Checkout'))
+const Orders = lazy(() => import('./pages/Orders'))
+const OrderDetail = lazy(() => import('./pages/OrderDetail'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+// scroll to top (or to the #section) when the route changes
+function ScrollManager() {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    if (hash) {
+      const target = document.getElementById(hash.slice(1))
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' })
+        return
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [pathname, hash])
+
+  return null
+}
 
 function App() {
-  const [cartcount,setcartcount] = useState(0);
-  const [open,setopen] = useState(false);
-  const [openRemove,setopenRemove] = useState(false);
-
-  const addToCart = (id) => {
-
-    if(id==3){
-      setcartcount(cartcount+2);
-    }
-    else{
-      setcartcount(cartcount+1)
-    }
-    setopen(true);
-  }
-
-  const removeFromCart = (id) =>{
-
-    if (cartcount >0)
-    {   
-    if(id==3){
-      setcartcount(cartcount-2);
-    }
-    else{
-      setcartcount(cartcount-1)
-    }
-    setopenRemove(true);
-  }
-  }
-
-  const handleClose = () => setopen(false);
-
-  const handleRemoveClose = () => setopenRemove(false);
-
   return (
     <>
-      <BrowserRouter>
-        <Navbar  count={cartcount} />
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity='success' variant='filled'>
-            ittem ADDED hurray!!!!!!!!
-          </Alert>
-        </Snackbar>
-        <Snackbar open={openRemove} autoHideDuration={2000} onClose={handleRemoveClose}>
-          <Alert onClose={handleClose} severity='warning' variant='filled'>
-            ittem Removed BBBBBAAAAAAADDDDDD!!!!!!!!
-          </Alert>
-        </Snackbar>
-        <Routes>
-          <Route path="/" element={<Home onAdd={addToCart} onRemove={removeFromCart}/>} />
-        </Routes>
-      </BrowserRouter>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <ScrollManager />
+      <Navbar />
+      <CartDrawer />
+      <CartNotice />
+      <main id="main" tabIndex={-1}>
+        <Suspense fallback={<LinearProgress color="primary" aria-label="Loading page" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:orderId" element={<OrderDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
     </>
   )
 }

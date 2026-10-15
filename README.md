@@ -1,16 +1,48 @@
-# React + Vite
+# Quirky Fruity
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A juice bar website made with React. You can browse the menu, add drinks to a cart, check out for pickup or delivery and see your past orders.
 
-Currently, two official plugins are available:
+Live: https://muhammadmuneeb-mk.github.io/quirky-fruity/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This started as a landing page for my Web Engineering course and I later turned it into a working ordering app. There is no real backend yet, so orders are saved in the browser (localStorage) and no payment is taken.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Menu page with categories, search and sorting (filters are kept in the URL)
+- Cart drawer with quantity controls, saved in localStorage so it survives a refresh
+- Checkout form with validation, pickup or delivery, and a delivery fee under $20
+- Order history and a receipt page for each order
+- 404 page, empty states and loading states
+- Responsive layout for mobile and desktop
 
-## Expanding the ESLint configuration
+## Tech
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19 + Vite
+- React Router 7
+- MUI 7
+- React Context + useReducer for the cart
+
+## Project structure
+
+```
+src/
+  components/   Navbar, ProductCard, CartDrawer, Footer, ...
+  pages/        Home, Menu, Checkout, Orders, OrderDetail, NotFound
+  context/      cart state (CartProvider + useCart hook)
+  data/         menu items
+  services/     orders.js - fake API, can be replaced with fetch() calls later
+  utils/        price formatting, delivery fee, localStorage helpers
+```
+
+Prices are stored in cents to avoid floating point issues.
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Deploy
+
+Pushing to `main` builds the site and deploys it to GitHub Pages with GitHub Actions (`.github/workflows/deploy.yml`).

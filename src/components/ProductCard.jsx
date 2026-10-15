@@ -1,52 +1,62 @@
-import './ProductCard.css';
-import { Button } from "@mui/material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import RemoveIcon from '@mui/icons-material/Remove';
+import Button from '@mui/material/Button'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import QuantityStepper from './QuantityStepper'
+import { useCart } from '../context/useCart'
+import { formatPrice } from '../utils/format'
+import './ProductCard.css'
 
-const ProductCard = ({id,name,price,img, onAdd, onRemove}) =>{
-    const handleAddToCart = () => {
-    if (onAdd) {
-      onAdd(id);
-    }
-  };
+const ProductCard = ({ product, style }) => {
+  const { qtyOf, add, setQty } = useCart()
+  const qty = qtyOf(product.id)
 
-    const handleRemoveFromCart = () => {
-  if (onRemove) onRemove(id);
-};
+  return (
+    <article className={`product-card product-card--${product.tint}`} style={style}>
+      <div className="product-card__art">
+        {product.tags.length > 0 && (
+          <ul className="product-card__tags" aria-label="Tags">
+            {product.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        )}
+        <img src={product.image} alt="" loading="lazy" width="260" height="200" />
+      </div>
 
+      <div className="product-card__body">
+        <div className="product-card__heading">
+          <h3>{product.name}</h3>
+          <p className="product-card__price">{formatPrice(product.price)}</p>
+        </div>
+        <p className="product-card__desc">{product.description}</p>
+        <p className="product-card__meta">
+          {product.size} · {product.calories} kcal · {product.ingredients.join(', ')}
+        </p>
 
+        <div className="product-card__actions">
+          {qty === 0 ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              fullWidth
+              startIcon={<AddShoppingCartIcon />}
+              onClick={() => add(product.id)}
+            >
+              Add to cart
+            </Button>
+          ) : (
+            <div className="product-card__in-cart">
+              <QuantityStepper
+                value={qty}
+                label={product.name}
+                onChange={(next) => setQty(product.id, next)}
+              />
+              <span>in your cart</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </article>
+  )
+}
 
-    return(
-        <div className="product-card">
-      <img src={img} alt={name} />
-      <h3>{name}</h3>
-      <p className="price">{price}</p>
-      <Button variant="contained" 
-        startIcon={<ShoppingCartIcon />} 
-        onClick={handleAddToCart} 
-        sx={{ 
-          backgroundColor: 'black', 
-          borderRadius: '20px',
-          '&:hover': { backgroundColor: '#b46868' } 
-        }}
-      >
-        ADD TO CART
-      </Button>
-       <Button 
-    variant="contained"
-    startIcon={<RemoveIcon />} 
-    onClick={handleRemoveFromCart}
-    sx={{ 
-      backgroundColor: 'black', 
-          borderRadius: '20px',
-          '&:hover': { backgroundColor: '#b46868' }
-    }}
-  >
-    REMOVE
-  </Button>
-
-    </div>
-    )
-} 
-
-export default ProductCard;
+export default ProductCard

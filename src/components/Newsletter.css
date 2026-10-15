@@ -1,0 +1,62 @@
+.newsletter {
+  padding-block: clamp(64px, 9vw, 112px);
+  background-color: var(--cream);
+  background-size: 1100px auto;
+  background-position: center;
+}
+
+.newsletter__card {
+  max-width: 760px;
+  margin-inline: auto;
+  padding: clamp(28px, 5vw, 48px);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: 8px 8px 0 var(--ink);
+  text-align: center;
+}
+
+.newsletter__card h2 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 10px;
+}
+
+.newsletter__card > p {
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 auto 28px;
+}
+
+.newsletter__form {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr auto;
+  gap: 12px;
+  text-align: left;
+}
+
+.newsletter__submit.MuiButton-root {
+  height: 56px;
+  min-width: 140px;
+}
+
+.newsletter__done {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: var(--teal);
+  font-weight: 600;
+  animation: pop-in 320ms ease both;
+}
+
+@media (max-width: 640px) {
+  .newsletter__form {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .newsletter__submit.MuiButton-root {
+    width: 100%;
+  }
+}
