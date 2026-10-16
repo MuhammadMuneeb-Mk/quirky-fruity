@@ -270,6 +270,10 @@ const Checkout = () => {
                 `Place order · ${formatPrice(totals.total)}`
               )}
             </Button>
+            <p className="checkout-note checkout-note--center">
+              Your details are only saved in this browser.{' '}
+              <Link to="/privacy">Privacy &amp; terms</Link>
+            </p>
           </form>
 
           <aside className="checkout-summary" aria-label="Order summary">

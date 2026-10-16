@@ -55,7 +55,10 @@ const Footer = () => (
     </div>
 
     <div className="footer__bottom container">
-      <p>© {new Date().getFullYear()} Quirky Fruity. A portfolio project, orders are not real.</p>
+      <p>
+        © {new Date().getFullYear()} Quirky Fruity. A portfolio project, orders are not real.{' '}
+        <Link to="/privacy">Privacy &amp; terms</Link>
+      </p>
       <p>
         Built with React, React Router and MUI by{' '}
         <a href="https://github.com/MuhammadMuneeb-Mk" target="_blank" rel="noreferrer">

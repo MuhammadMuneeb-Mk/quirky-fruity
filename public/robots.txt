@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://muhammadmuneeb-mk.github.io/quirky-fruity/sitemap.xml
