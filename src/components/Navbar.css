@@ -34,7 +34,6 @@
 
 .navbar__logo span {
   color: var(--mustard);
-  margin-left: 0.15em;
 }
 
 .navbar__links {
@@ -48,10 +47,11 @@
 
 .navbar__link {
   display: inline-block;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 999px;
   color: var(--cream);
-  font-weight: 600;
+  font-size: 1.1875rem;
+  font-weight: 700;
   text-decoration: none;
   transition:
     background-color 160ms ease,
@@ -81,9 +81,39 @@
     background-color 160ms ease;
 }
 
-.navbar__order:hover {
-  background: #000;
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .navbar__order:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+}
+
+.navbar__bag {
+  display: inline-flex;
+}
+
+.navbar__bag.is-bumped {
+  animation: bag-wiggle 600ms ease;
+}
+
+@keyframes bag-wiggle {
+  0%,
+  100% {
+    transform: none;
+  }
+  20% {
+    transform: rotate(-16deg) scale(1.15);
+  }
+  45% {
+    transform: rotate(12deg) scale(1.15);
+  }
+  70% {
+    transform: rotate(-6deg);
+  }
+}
+
+.navbar__overlay {
+  display: none;
 }
 
 .navbar__actions {
@@ -161,6 +191,25 @@
     visibility: visible;
   }
 
+  /* dims the page behind the open menu; a tap on it closes the menu */
+  .navbar__overlay {
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    z-index: -1;
+    border: 0;
+    padding: 0;
+    background: rgba(27, 23, 20, 0.45);
+    cursor: pointer;
+    animation: overlay-in 180ms ease both;
+  }
+
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+  }
+
   .navbar__link {
     display: block;
     padding: 12px 16px;
@@ -172,5 +221,16 @@
     margin: 8px 0 0;
     text-align: center;
     padding: 14px 20px;
+  }
+}
+
+/* smaller header on phones */
+@media (max-width: 600px) {
+  .navbar__inner {
+    min-height: 61px;
+  }
+
+  .navbar__logo {
+    font-size: 1.5rem;
   }
 }

@@ -1,11 +1,13 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import LinearProgress from '@mui/material/LinearProgress'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import CartDrawer from './components/CartDrawer'
 import CartNotice from './components/CartNotice'
 import Home from './pages/Home'
+import { useCart } from './context/useCart'
+
+const CartDrawer = lazy(() => import('./components/CartDrawer'))
 
 // lazy load the other pages
 const Menu = lazy(() => import('./pages/Menu'))
@@ -32,7 +34,22 @@ function ScrollManager() {
   return null
 }
 
+// the drawer code is only downloaded the first time the cart is opened
+function LazyCartDrawer() {
+  const { isOpen } = useCart()
+  const [wanted, setWanted] = useState(false)
+  if (isOpen && !wanted) setWanted(true)
+  if (!wanted) return null
+  return (
+    <Suspense fallback={null}>
+      <CartDrawer />
+    </Suspense>
+  )
+}
+
 function App() {
+  const { pathname } = useLocation()
+
   return (
     <>
       <a className="skip-link" href="#main">
@@ -40,18 +57,21 @@ function App() {
       </a>
       <ScrollManager />
       <Navbar />
-      <CartDrawer />
+      <LazyCartDrawer />
       <CartNotice />
       <main id="main" tabIndex={-1}>
         <Suspense fallback={<LinearProgress color="primary" aria-label="Loading page" />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/:orderId" element={<OrderDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          {/* re-keyed on each page so the new page fades in */}
+          <div key={pathname} className="page-fade">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders/:orderId" element={<OrderDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </Suspense>
       </main>
       <Footer />

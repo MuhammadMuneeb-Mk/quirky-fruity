@@ -3,6 +3,8 @@ import { createTheme } from '@mui/material/styles'
 export const colors = {
   tomato: '#E0532F',
   tomatoDark: '#BF4122',
+  buttonOrange: '#CB4723',
+  buttonOrangeDark: '#B23D1D',
   teal: '#658F90',
   tealDark: '#4F7576',
   mustard: '#E8B735',
@@ -13,7 +15,7 @@ export const colors = {
 
 const theme = createTheme({
   palette: {
-    primary: { main: colors.tomato, dark: colors.tomatoDark, contrastText: '#fff' },
+    primary: { main: colors.buttonOrange, dark: colors.buttonOrangeDark, contrastText: '#fff' },
     secondary: { main: colors.ink, contrastText: colors.cream },
     info: { main: colors.teal },
     success: { main: '#3E7D5A' },

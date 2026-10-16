@@ -11,9 +11,10 @@ import DeliveryDiningOutlinedIcon from '@mui/icons-material/DeliveryDiningOutlin
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useCart } from '../context/useCart'
 import { placeOrder } from '../services/orders'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { computeTotals } from '../utils/pricing'
 import { formatPrice } from '../utils/format'
-import emptyArt from '../assets/try-some-new-fruit.png'
+import emptyArt from '../assets/try-some-new-fruit.webp'
 import './Checkout.css'
 
 const EMPTY_FORM = { name: '', phone: '', email: '', address: '', notes: '' }
@@ -31,6 +32,7 @@ const validate = (form, fulfilment) => {
 }
 
 const Checkout = () => {
+  usePageTitle('Checkout')
   const { lines, subtotal, clear } = useCart()
   const navigate = useNavigate()
   const [form, setForm] = useState(EMPTY_FORM)
@@ -106,7 +108,7 @@ const Checkout = () => {
           <h1>Your cart is empty</h1>
           <p>Add a drink or two from the menu, then come back here to check out.</p>
           <Button component={Link} to="/menu" variant="contained" size="large">
-            Browse the menu
+            See the menu
           </Button>
         </div>
       </div>

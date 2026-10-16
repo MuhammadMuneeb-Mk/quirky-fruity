@@ -29,7 +29,9 @@ const ProductCard = ({ product, style }) => {
         </div>
         <p className="product-card__desc">{product.description}</p>
         <p className="product-card__meta">
-          {product.size} · {product.calories} kcal · {product.ingredients.join(', ')}
+          {product.ingredients.join(', ')}
+          <br />
+          {product.size}, {product.calories} kcal
         </p>
 
         <div className="product-card__actions">

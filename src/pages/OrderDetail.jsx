@@ -4,8 +4,11 @@ import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { getOrder } from '../services/orders'
+import { getProduct, productImage } from '../data/menu'
+import { useCart } from '../context/useCart'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { formatDate, formatPrice } from '../utils/format'
-import celebrateArt from '../assets/fresh-fruit-img-bottom.png'
+import celebrateArt from '../assets/fresh-fruit-img-bottom.webp'
 import './Orders.css'
 
 const OrderDetail = () => {
@@ -14,6 +17,15 @@ const OrderDetail = () => {
   const justPlaced = Boolean(state?.justPlaced)
   // undefined = loading, null = not found
   const [order, setOrder] = useState(undefined)
+  const { add, openCart, dismissNotice } = useCart()
+  usePageTitle(`Order ${orderId}`)
+
+  // put the same drinks back in the cart (skips anything no longer on the menu)
+  const orderAgain = () => {
+    order.items.filter((item) => getProduct(item.id)).forEach((item) => add(item.id, item.qty))
+    dismissNotice()
+    openCart()
+  }
 
   useEffect(() => {
     let active = true
@@ -102,7 +114,7 @@ const OrderDetail = () => {
           <ul className="receipt__items">
             {order.items.map((item) => (
               <li key={item.id}>
-                <img src={item.image} alt="" width="48" height="48" />
+                <img src={productImage(item.id)} alt="" width="48" height="48" />
                 <span className="receipt__name">
                   {item.qty} × {item.name}
                 </span>
@@ -153,9 +165,15 @@ const OrderDetail = () => {
         </div>
 
         <div className="order-actions">
-          <Button component={Link} to="/menu" variant="contained" size="large">
-            Order something else
-          </Button>
+          {justPlaced ? (
+            <Button component={Link} to="/menu" variant="contained" size="large">
+              Order something else
+            </Button>
+          ) : (
+            <Button variant="contained" size="large" onClick={orderAgain}>
+              Order again
+            </Button>
+          )}
           <Button component={Link} to="/orders" color="secondary" size="large">
             See all orders
           </Button>

@@ -27,7 +27,7 @@ export async function placeOrder({ lines, customer, fulfilment, payment, totals 
     payment,
     customer,
     totals,
-    items: lines.map(({ id, name, price, qty, image }) => ({ id, name, price, qty, image })),
+    items: lines.map(({ id, name, price, qty }) => ({ id, name, price, qty })),
   }
 
   writeJSON(STORAGE_KEY, [order, ...readJSON(STORAGE_KEY, [])])

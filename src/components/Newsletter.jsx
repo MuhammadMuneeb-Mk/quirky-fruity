@@ -3,11 +3,13 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useReveal } from '../hooks/useReveal'
 import './Newsletter.css'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const Newsletter = ({ background }) => {
+  useReveal()
   const [form, setForm] = useState({ name: '', email: '' })
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | done
@@ -37,7 +39,7 @@ const Newsletter = ({ background }) => {
       aria-labelledby="newsletter-title"
     >
       <div className="container">
-        <div className="newsletter__card">
+        <div className="newsletter__card" data-reveal>
           <h2 id="newsletter-title">
             Newsletter <span className="highlight">registration</span>
           </h2>

@@ -7,8 +7,17 @@ import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
 import ProductCard from '../components/ProductCard'
 import { CATEGORIES, PRODUCTS } from '../data/menu'
-import emptyArt from '../assets/Blue-Fruit-Left-Hero-Section.png'
+import WaveEdge from '../components/WaveEdge'
+import { usePageTitle } from '../hooks/usePageTitle'
+import emptyArt from '../assets/Blue-Fruit-Left-Hero-Section.webp'
 import './Menu.css'
+
+const COUNTS = Object.fromEntries(
+  CATEGORIES.map((c) => [
+    c.id,
+    c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter((p) => p.category === c.id).length,
+  ]),
+)
 
 const SORTS = {
   popular: { label: 'Most popular', fn: () => 0 },
@@ -18,6 +27,7 @@ const SORTS = {
 }
 
 const Menu = () => {
+  usePageTitle('Menu')
   // filters are saved in the URL
   const [params, setParams] = useSearchParams()
   const category = CATEGORIES.some((c) => c.id === params.get('category'))
@@ -48,15 +58,19 @@ const Menu = () => {
   return (
     <div className="menu-page grid-paper">
       <section className="menu-hero">
-        <div className="container">
-          <h1>
-            Our <span className="highlight">menu</span>
-          </h1>
-          <p>
-            Fresh juices, smoothies and shots. Search by fruit or filter by type, then add what you
-            like to your cart.
-          </p>
+        <div className="container menu-hero__inner">
+          <div className="menu-hero__copy">
+            <h1>
+              Our <span className="highlight">menu</span>
+            </h1>
+            <p>
+              Fresh juices, smoothies and shots. Search by fruit or filter by type, then add what
+              you like to your cart.
+            </p>
+          </div>
+          <img src={emptyArt} alt="" className="menu-hero__fruit" width="200" height="190" />
         </div>
+        <WaveEdge color="var(--cream)" position="bottom" variant={2} />
       </section>
 
       <section className="container menu-body" aria-labelledby="menu-results">
@@ -72,6 +86,7 @@ const Menu = () => {
                 onClick={() => updateParam('category', c.id, 'all')}
               >
                 {c.label}
+                <span className="menu-chip__count">{COUNTS[c.id]}</span>
               </button>
             ))}
           </div>

@@ -8,7 +8,7 @@ import QuantityStepper from './QuantityStepper'
 import { useCart } from '../context/useCart'
 import { formatPrice } from '../utils/format'
 import { FREE_DELIVERY_FROM } from '../utils/pricing'
-import emptyArt from '../assets/pineapple-fav-section.png'
+import emptyArt from '../assets/pineapple-fav-section.webp'
 import './CartDrawer.css'
 
 const CartDrawer = () => {
@@ -44,7 +44,7 @@ const CartDrawer = () => {
           <h3>Nothing in here yet</h3>
           <p>Pick a juice or a smoothie and it will show up here.</p>
           <Button variant="contained" onClick={() => goTo('/menu')}>
-            Browse the menu
+            See the menu
           </Button>
         </div>
       ) : (

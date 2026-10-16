@@ -1,12 +1,12 @@
-import orangeJuice from '../assets/orange-juice-product.png'
-import pineappleJuice from '../assets/pineapple-juice-product.png'
-import papayaJuice from '../assets/papaya-juice-product.png'
-import blueFruit from '../assets/Blue-Fruit-Left-Hero-Section.png'
-import avocado from '../assets/beat-summer-right-fruit.png'
-import pineapple from '../assets/pineapple-fav-section.png'
-import papaya from '../assets/Deliciously-Splatter-Fruit.png'
-import orange from '../assets/footer-fruit-bottom-right.png'
-import trio from '../assets/try-some-new-fruit.png'
+import orangeJuice from '../assets/orange-juice-product.webp'
+import pineappleJuice from '../assets/pineapple-juice-product.webp'
+import papayaJuice from '../assets/papaya-juice-product.webp'
+import blueFruit from '../assets/Blue-Fruit-Left-Hero-Section.webp'
+import avocado from '../assets/beat-summer-right-fruit.webp'
+import pineapple from '../assets/pineapple-fav-section.webp'
+import papaya from '../assets/Deliciously-Splatter-Fruit.webp'
+import orange from '../assets/footer-fruit-bottom-right.webp'
+import trio from '../assets/try-some-new-fruit.webp'
 
 export const CATEGORIES = [
   { id: 'all', label: 'Everything' },
@@ -139,3 +139,6 @@ export const PRODUCTS = [
 export const FEATURED_IDS = ['orange-sunrise', 'avocado-cream', 'pineapple-mint']
 
 export const getProduct = (id) => PRODUCTS.find((p) => p.id === id)
+
+// saved orders only keep the product id, so images always come from the current menu
+export const productImage = (id) => getProduct(id)?.image ?? blueFruit

@@ -1,8 +1,8 @@
 .footer {
+  position: relative;
   background: var(--ink);
   color: var(--cream);
   padding-top: clamp(56px, 8vw, 88px);
-  overflow: hidden;
 }
 
 .footer__inner {
@@ -127,5 +127,11 @@
   .footer__inner {
     grid-template-columns: 1fr;
     padding-bottom: 96px;
+  }
+}
+
+@media (pointer: coarse) {
+  .footer__col a {
+    padding-block: 6px;
   }
 }

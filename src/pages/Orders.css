@@ -37,9 +37,11 @@
     box-shadow 180ms ease;
 }
 
-.order-row:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-ink);
+@media (hover: hover) {
+  .order-row:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-ink);
+  }
 }
 
 .order-row__thumbs {
@@ -107,6 +109,7 @@
 
 .order-back {
   display: inline-block;
+  padding-block: 8px;
   margin-bottom: 12px;
   font-weight: 600;
   color: var(--ink-soft);
@@ -161,7 +164,7 @@
 .receipt__head span,
 .receipt__customer span {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.7;

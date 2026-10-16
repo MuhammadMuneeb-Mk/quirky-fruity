@@ -1,8 +1,40 @@
 .menu-hero {
+  --hero-pb: clamp(56px, 8vw, 96px);
+  position: relative;
+  overflow: hidden;
   background: var(--teal);
-  border-bottom: 3px solid var(--ink);
-  padding-block: clamp(48px, 7vw, 80px) clamp(56px, 8vw, 96px);
+  padding-block: clamp(48px, 7vw, 80px) var(--hero-pb);
   color: var(--ink);
+}
+
+.menu-hero__inner {
+  position: relative;
+}
+
+.menu-hero__copy {
+  position: relative;
+  z-index: 1;
+}
+
+/* peeks out from behind the wave at the bottom of the header */
+.menu-hero__fruit {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--hero-pb) * -1 - 12px);
+  width: clamp(120px, 17vw, 210px);
+  height: auto;
+  transform-origin: 50% 100%;
+  animation: menu-fruit-sway 5s ease-in-out infinite;
+}
+
+@keyframes menu-fruit-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-6px);
+  }
 }
 
 .menu-hero h1 {
@@ -28,6 +60,7 @@
 
 .menu-toolbar {
   position: relative;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -48,7 +81,10 @@
 }
 
 .menu-chip {
-  padding: 9px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px 9px 16px;
   border: 2px solid var(--ink);
   border-radius: 999px;
   background: transparent;
@@ -75,18 +111,34 @@
   color: var(--cream);
 }
 
+.menu-chip__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--mustard);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* fills whatever space is left next to the categories, or the whole row when it wraps */
 .menu-controls {
+  flex: 1 1 420px;
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
 }
 
 .menu-controls .MuiTextField-root {
-  width: 200px;
+  flex: 0 0 210px;
 }
 
 .menu-controls .MuiTextField-root:first-child {
-  width: 260px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .menu-count {
@@ -126,22 +178,54 @@
   margin-bottom: 8px;
 }
 
+/* phones: the category buttons become a bar that stays under the navbar while scrolling */
 @media (max-width: 720px) {
-  .menu-controls,
-  .menu-controls .MuiTextField-root,
-  .menu-controls .MuiTextField-root:first-child {
-    width: 100%;
+  .menu-toolbar {
+    display: contents;
   }
 
   .menu-chips {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 4;
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin-inline: -4px;
-    padding: 4px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 12px var(--gutter);
+    background: var(--paper);
+    border-bottom: 3px solid var(--ink);
     scrollbar-width: none;
   }
 
   .menu-chip {
     flex: none;
+  }
+
+  .menu-controls {
+    margin-top: 18px;
+  }
+
+  .menu-controls {
+    flex-direction: column;
+  }
+
+  .menu-controls .MuiTextField-root,
+  .menu-controls .MuiTextField-root:first-child {
+    flex: none;
+    width: 100%;
+  }
+
+  .menu-count {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-hero__copy {
+    padding-right: 96px;
+  }
+
+  .menu-hero__fruit {
+    width: 104px;
   }
 }

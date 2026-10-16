@@ -4,11 +4,14 @@ import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { listOrders } from '../services/orders'
+import { productImage } from '../data/menu'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { formatDate, formatPrice } from '../utils/format'
-import emptyArt from '../assets/pineapple-fav-section.png'
+import emptyArt from '../assets/pineapple-fav-section.webp'
 import './Orders.css'
 
 const Orders = () => {
+  usePageTitle('My orders')
   const [orders, setOrders] = useState(null)
 
   useEffect(() => {
@@ -37,7 +40,7 @@ const Orders = () => {
             <h2>No orders yet</h2>
             <p>When you place an order it will appear here, with its status and receipt.</p>
             <Button component={Link} to="/menu" variant="contained" size="large">
-              Start an order
+              Order now
             </Button>
           </div>
         ) : (
@@ -49,7 +52,13 @@ const Orders = () => {
                   <Link to={`/orders/${order.id}`} className="order-row">
                     <div className="order-row__thumbs" aria-hidden="true">
                       {order.items.slice(0, 3).map((item) => (
-                        <img key={item.id} src={item.image} alt="" width="44" height="44" />
+                        <img
+                          key={item.id}
+                          src={productImage(item.id)}
+                          alt=""
+                          width="44"
+                          height="44"
+                        />
                       ))}
                     </div>
                     <div className="order-row__info">

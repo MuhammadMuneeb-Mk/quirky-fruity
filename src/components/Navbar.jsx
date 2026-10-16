@@ -26,6 +26,27 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
+  // wiggle the bag icon whenever the cart count goes up
+  const [lastCount, setLastCount] = useState(count)
+  const [bump, setBump] = useState(0)
+  if (count !== lastCount) {
+    if (count > lastCount) setBump((b) => b + 1)
+    setLastCount(count)
+  }
+
+  // while the phone menu is open: Escape closes it and the page behind can't scroll
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e) => e.key === 'Escape' && setIsOpen(false)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [isOpen])
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
@@ -36,8 +57,8 @@ const Navbar = () => {
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <nav className="navbar__inner container" aria-label="Main">
-        <Link to="/" className="navbar__logo" aria-label="Quirky Fruity home">
-          Quirky<span>Fruity</span>
+        <Link to="/" className="navbar__logo">
+          Quirky <span>Fruity</span>
         </Link>
 
         <ul id="nav-links" className={`navbar__links ${isOpen ? 'is-open' : ''}`}>
@@ -68,20 +89,22 @@ const Navbar = () => {
             className="navbar__cart"
             sx={{ color: 'inherit' }}
           >
-            <Badge
-              badgeContent={count}
-              max={99}
-              sx={{
-                '& .MuiBadge-badge': {
-                  bgcolor: 'var(--mustard)',
-                  color: 'var(--ink)',
-                  fontWeight: 700,
-                  border: '2px solid var(--tomato)',
-                },
-              }}
-            >
-              <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
-            </Badge>
+            <span key={bump} className={`navbar__bag ${bump ? 'is-bumped' : ''}`}>
+              <Badge
+                badgeContent={count}
+                max={99}
+                sx={{
+                  '& .MuiBadge-badge': {
+                    bgcolor: 'var(--mustard)',
+                    color: 'var(--ink)',
+                    fontWeight: 700,
+                    border: '2px solid var(--tomato)',
+                  },
+                }}
+              >
+                <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+              </Badge>
+            </span>
           </IconButton>
 
           <button
@@ -98,6 +121,16 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
+
+      {isOpen && (
+        <button
+          type="button"
+          className="navbar__overlay"
+          aria-label="Close menu"
+          tabIndex={-1}
+          onClick={() => setIsOpen(false)}
+        />
+      )}
     </header>
   )
 }
